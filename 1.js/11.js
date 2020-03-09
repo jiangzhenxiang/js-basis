@@ -27,17 +27,19 @@ delete obj.getName;
     }
     function call2(context, ...args) {
         context = getDefaultContext(context);
+        debugger
         let symbol = Symbol('fn');
         context[symbol] = this;
         context[symbol](...args);
         delete context[symbol];
     }
     function apply2(context, args) {
-        context = getDefaultContext(context);
-        let symbol = Symbol('fn');
-        context[symbol] = this;
-        context[symbol](...args);
-        delete context[symbol];
+        // context = getDefaultContext(context);
+        // let symbol = Symbol('fn');
+        // context[symbol] = this;
+        // context[symbol](...args);
+        // delete context[symbol];
+        call2(context, ...args)
     }
     function bind2(context, ...outerArgs) {
         //this=getName
@@ -51,10 +53,10 @@ function getName(age, home) {
     console.log(this.name, age, home);
 }
 let obj = { name: 'jzx' };
-getName.call2(obj, 10, 'beijing');
+// getName.call2(obj, 10, 'beijing');
 getName.apply2(obj, [10, 'beijing']);
 
-let bindGetName = getName.bind2(obj, 10);
-bindGetName('jzx');
+// let bindGetName = getName.bind2(obj, 10);
+// bindGetName('jzx');
 
 //this 当前的执行主体   this如何确定只记住 一条    

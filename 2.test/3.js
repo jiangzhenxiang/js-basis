@@ -6,11 +6,13 @@
  */
 
 Function.prototype.apply = function (obj, args) {
-    const context = obj;
+    const context = obj; // context = { age: 10 }
     // 增加一个临时函数名（symbol保证唯一性）
     const fn = Symbol();
-    // this是函数本身，当前函数
+    // this是函数本身，当前函数。
+    // 如sum.call(obj, 20, 30);  this就是sum
     context[fn] = this;
+    // context = { age: 10, fn: sum }
     // 执行当前函数
     const result = context[fn](...args);
     // 删除函数
